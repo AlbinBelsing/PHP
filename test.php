@@ -1,16 +1,16 @@
 <?php
-$antalGgr = isset($_COOKIE["Skapa"]) ? $_COOKIE["Skapa"] : 0;
-$disabledCreate = isset($_COOKIE["Skapa"]);
-$disabledDestroy = !$disabledCreate;
+$antalGgr = isset($_COOKIE["Skapa"]) ? $_COOKIE["Skapa"] : 0; //Kollar om kakan finns, finns den inte får antalGgr värdet 0 annars tilldelas kakan antalGgr
+$disabledCreate = isset($_COOKIE["Skapa"]); //Kollar om skapa finns, finns kakan så blir det true och annars false
+$disabledDestroy = !$disabledCreate; // Blir destroy true blir create false och vice verse. 
 
-if (isset($_POST["btnCreate"])) {
+if (isset($_POST["btnCreate"])) { //Skapar kakan och gör Create otillgänglig men Destroy tillgänglig
     setcookie("Skapa", $antalGgr, time() + 3600);
     echo "<p>Nu är kakan skapad</p>";
     $disabledCreate = true;
     $disabledDestroy = false;
 }
 
-if (isset($_POST["btnIncrease"])) {
+if (isset($_POST["btnIncrease"])) { //Ökar kakan med ett om den finns, finns den inte skrivs "Skapa kaka först" ut. 
     if (isset($_COOKIE["Skapa"])) {
         $antalGgr++;
         setcookie("Skapa", $antalGgr, time() + 3600);
@@ -20,14 +20,14 @@ if (isset($_POST["btnIncrease"])) {
     }
 }
 
-if (isset($_POST["btnDestroy"])) {
+if (isset($_POST["btnDestroy"])) {//Förstör kakan samt gör Create tillgänglig och destroy otillgänglig 
     setcookie("Skapa", "", time() - 3600);
     echo "<p>Nu är kakan förstörd</p>";
     $disabledCreate = false;
     $disabledDestroy = true;
 }
 
-if (isset($_POST["btnVisa"])) {
+if (isset($_POST["btnVisa"])) { //Visar kakans värde, finns inte kakan skrivs texten ut
     if (isset($_COOKIE["Skapa"])) {
         echo "<p>Kakans värde: $antalGgr</p>";
     } else {
@@ -70,3 +70,4 @@ if (isset($_POST["btnVisa"])) {
     </div>
 </body>
 </html>
+
